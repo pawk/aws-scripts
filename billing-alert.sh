@@ -24,11 +24,28 @@ subscribe() {
 }
 
 alarm() {
+  alarms=$(aws cloudwatch describe-alarms \
+    --alarm-name-prefix=awsbilling \
+    --output text \
+    --query 'MetricAlarms[*].AlarmName')
+
   for amount in 1 10
   do
+    alarm_name="awsbilling-$amount"
+
+    exist=$(aws cloudwatch describe-alarms \
+    --alarm-names $alarm_name \
+    --output text \
+    --query 'MetricAlarms[*].AlarmName')
+
+    if [ -n "$exist" ]; then
+      echo "Alarm $exist exists, skipping..."
+      continue
+    fi
+
     echo "Setting up alarm for \$$amount..."
     aws cloudwatch put-metric-alarm \
-      --alarm-name "awsbilling-$amount" \
+      --alarm-name "$alarm_name" \
       --alarm-description "AWS billing alarm: \$$amount" \
       --namespace AWS/Billing \
       --metric-name EstimatedCharges \
