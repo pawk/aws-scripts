@@ -1,5 +1,7 @@
+workdir=$(dirname $0)
+
 # install nginx proxy
-. ../reverse-proxy/install.sh
+. "$workdir../reverse-proxy/install.sh"
 
 # install node
-. ../node/install.sh
+. "$workdir../node/install.sh"
