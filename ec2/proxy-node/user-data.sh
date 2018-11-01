@@ -1,12 +1,8 @@
 # scripts and configurations
 git clone https://github.com/pawk/aws-scripts
 
-cd aws-scripts/ec2/
-
-# install nginx proxy
-. nginx-proxy.sh
-
-# install node
-. node-on-ec2.sh
+pushd aws-scripts/ec2/proxy-node
+. install.sh
+popd
 
 rm -rf aws-scripts

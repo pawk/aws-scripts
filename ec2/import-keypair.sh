@@ -1,7 +1,7 @@
 keypair=$1
 
 usage() {
-  printf "\nUsage: import-keypair [name] [file]\n\n"
+  printf "\nUsage: ./import-keypair.sh [name] [file]\n\n"
 }
 
 if [ -z "$keypair" ]; then
